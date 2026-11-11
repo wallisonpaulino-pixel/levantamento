@@ -5,7 +5,7 @@ import { importarBackup } from './exportar'
 import { Barra, avisar, comEspera, confirmar, pedirTexto } from './ui'
 import { dataBR, hoje, uid } from './util'
 
-export function TelaInicio(p: { modos: Modo[]; abrir: (id: string) => void; abrirModos: () => void }) {
+export function TelaInicio(p: { modos: Modo[]; abrir: (id: string) => void; abrirModos: () => void; abrirDiagnostico: () => void }) {
   const [obras, setObras] = useState<Obra[] | null>(null)
   const [persistente, setPersistente] = useState<boolean | null>(null)
   const arqRef = useRef<HTMLInputElement>(null)
@@ -60,6 +60,7 @@ export function TelaInicio(p: { modos: Modo[]; abrir: (id: string) => void; abri
         <div className="pilha topo">
           <button className="bt" onClick={p.abrirModos}>Modos de levantamento (fichas)</button>
           <button className="bt" onClick={() => arqRef.current?.click()}>Importar backup (.zip)</button>
+          <button className="bt" onClick={p.abrirDiagnostico}>Diagnóstico do aparelho (teste de AR)</button>
         </div>
         <input ref={arqRef} type="file" accept=".zip,application/zip" hidden onChange={(e) => { void importar(e.target.files?.[0]); e.target.value = '' }} />
         <p className="nota rodape">

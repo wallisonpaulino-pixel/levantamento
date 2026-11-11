@@ -6,6 +6,7 @@ import { TelaInicio } from './TelaInicio'
 import { TelaObra, exportarDxfPav } from './TelaObra'
 import { TelaModos } from './TelaModos'
 import { Editor } from './Editor'
+import { TelaDiagnostico } from './TelaDiagnostico'
 
 const ir = (h: string) => { window.location.hash = h }
 
@@ -42,8 +43,9 @@ export function App() {
   let tela
   if (!modos) tela = <div className="pagina"><Barra titulo="Levantamento Estrutural" /><main><div className="girando" /></main></div>
   else if (partes[0] === 'modos') tela = <TelaModos modos={modos} gravar={gravar} voltar={() => ir('')} />
+  else if (partes[0] === 'diagnostico') tela = <TelaDiagnostico voltar={() => ir('')} />
   else if (partes[0] === 'obra' && partes[1]) tela = <ComObra key={partes[1]} id={partes[1]} pavId={partes[2] === 'pav' ? partes[3] ?? null : null} modos={modos} />
-  else tela = <TelaInicio modos={modos} abrir={(id) => ir(`#/obra/${id}`)} abrirModos={() => ir('#/modos')} />
+  else tela = <TelaInicio modos={modos} abrir={(id) => ir(`#/obra/${id}`)} abrirModos={() => ir('#/modos')} abrirDiagnostico={() => ir('#/diagnostico')} />
 
   return <>{tela}<Dialogos /></>
 }
